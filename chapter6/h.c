@@ -13,7 +13,7 @@ int main()
         scanf("%d", &x);
         nig[i] = x; // NIGGGGGGGGGG
 
-        int matrix[x][x];     // FILM THE MATRIX ANJAAAYYYY
+        int matrix[x][x];           // FILM THE MATRIX ANJAAAYYYY
         long long resultColSums[x]; // buat ngambil semua hasil penjumlahan dari kolomnya
 
         for (int j = 0; j < x; j++)
@@ -31,7 +31,6 @@ int main()
             }
         }
 
-
         // printf("Case #%d:", i);
         for (int j = 0; j < x; j++)
         {
@@ -39,10 +38,12 @@ int main()
         }
     }
 
-    for(int i = 0; i < n; i++) {
-        printf("Case #%d:", i+1);
+    for (int i = 0; i < n; i++)
+    {
+        printf("Case #%d:", i + 1);
 
-        for (int j = 0; j < nig[i]; j++) /* nig = x */ {
+        for (int j = 0; j < nig[i]; j++) /* nig = x */
+        {
             printf(" %lld", result[i][j]);
         }
         printf("\n");

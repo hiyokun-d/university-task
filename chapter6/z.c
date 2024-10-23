@@ -2,52 +2,59 @@
 
 int main()
 {
-    int T; // number of test cases
-    scanf("%d", &T);
+    unsigned short T, N, K;
+    scanf("%hu", &T);
 
-    for (int case_num = 1; case_num <= T; case_num++)
+    for (int t = 1; t <= T; t++)
     {
-        int N, K; // N = length of the hall, K = Jojo's breath capacity
-        scanf("%d %d", &N, &K);
+        scanf("%hu %hu", &N, &K);
 
-        char hall[N + 1]; // Array to store the hall information
-        scanf("%s", hall);
+        char plots[N + 1];
+        scanf("%s", plots);
+        printf("Case #%d: ", t);
+        if (K >= N)
+        {
+            puts("Alive");
+            continue;
+        }
 
-        int breath_left = K;
-        int can_escape = 0; // Flag to check if Jojo can escape
+        unsigned short stairs = 0;
+        for (int i = 0; i < N; i++)
+            if (plots[i] == '1')
+                stairs++;
+        if (stairs < 2)
+        {
+            puts("Dead");
+            continue;
+        }
 
+        // If there are more than 2 stairs, Jojo will only use first and last stairs
+        unsigned short breaths = 0;
         for (int i = 0; i < N; i++)
         {
-            if (hall[i] == '1')
-            {
-                // If Jojo can reach a stair
-                can_escape = 1;  // Mark that Jojo can potentially escape
-                breath_left = K; // Reset breath when reaching stairs
-            }
-            else
-            {
-                // If Jojo steps on a normal plot
-                breath_left--;
-            }
-
-            // If breath runs out and Jojo is not on a stair
-            if (breath_left < 0)
-            {
-                can_escape = 0; // Jojo cannot escape
+            breaths++;
+            if (plots[i] == '1')
                 break;
-            }
+        }
+        if (breaths > K)
+        {
+            puts("Dead");
+            continue;
         }
 
-        // Output the result for the current test case
-        if (can_escape)
+        breaths = 0;
+        for (int i = N - 1; i >= 0; i--)
         {
-            printf("Case #%d: Alive\n", case_num);
+            breaths++;
+            if (plots[i] == '1')
+                break;
         }
-        else
+        if (breaths > K)
         {
-            printf("Case #%d: Dead\n", case_num);
+            puts("Dead");
+            continue;
         }
+        puts("Alive");
     }
-
     return 0;
 }
