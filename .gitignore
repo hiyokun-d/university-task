@@ -3,3 +3,4 @@
 /.vscode
 */runner
 */*.exe
+*/.DS_Store
