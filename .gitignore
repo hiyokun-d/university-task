@@ -4,4 +4,6 @@
 */runner
 */*.exe
 */.DS_Store
+*/testdata.in
+*/test
 IGNORE/
