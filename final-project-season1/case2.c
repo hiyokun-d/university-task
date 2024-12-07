@@ -1,18 +1,22 @@
+// this code is write by hiyo - Daffa
+// https://github.com/hiyokun-d
+// https://hiyo-dev.vercel.app
+// My Discord server: https://discord.gg/9aP6WM5F (hiyo-d)
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-FILE *fptr;
 
 /*
  * OBJECTIVE:
  * DISPLAY, DONE!!!!
  * MAKE SEARCH FUNCTION (2), DONE!!!
  * MAKE SORT FUNCTION (3 AND 2), DONE!!!
- * EXPORTING FUNCTION (4)
+ * EXPORTING FUNCTION (4), DONE!!!!
  * */
 
+FILE *fptr; // file pointer
 int total_places = 0;
 char line[256];
 
@@ -118,24 +122,33 @@ void converTolowerCase(char str[]) {
   }
 }
 
+// ------ MERGE SORT--------
+// Merge function to combine two sorted subarrays
 void merge(struct Places arr[], int left, int mid, int right, char *sort_by,
            char *order_by) {
-  int i, j, k;
+  int i = 0, j = 0, k = left;
+
+  // Determine the sizes of these two subarrays
   int n1 = mid - left + 1;
   int n2 = right - mid;
+
+  // it's just temporary array for holding the left and right subarrays
   struct Places L[n1], R[n2];
 
-  for (i = 0; i < n1; i++)
+  // we just copy the data into the left subarray that we made earlier
+  for (int i = 0; i < n1; i++)
     L[i] = arr[left + i];
-  for (j = 0; j < n2; j++)
-    R[j] = arr[mid + 1 + j];
 
-  i = 0;
-  j = 0;
-  k = left;
+  // and it's just exact same but it's copy the right one :v
+  for (int i = 0; i < n2; i++)
+    R[i] = arr[mid + 1 + i];
 
+  // merge the the subarrays by comparing their elements based on the user's
+  // decision or their preference
   while (i < n1 && j < n2) {
     int user_decision = 0;
+
+    // we'll check which column should be sort by
     if (strcmp(sort_by, "location") == 0) {
       user_decision = strcmp(L[i].location, R[j].location);
     } else if (strcmp(sort_by, "price") == 0) {
@@ -145,6 +158,8 @@ void merge(struct Places arr[], int left, int mid, int right, char *sort_by,
     } else if (strcmp(sort_by, "bathroom") == 0) {
       user_decision = (L[i].bathroom - R[j].bathroom);
     }
+
+    // determine if sorting should be in asc (ascending) or desc (descending)
     if (strcmp(order_by, "asc") == 0) {
       if (user_decision <= 0) {
         arr[k] = L[i];
@@ -165,6 +180,7 @@ void merge(struct Places arr[], int left, int mid, int right, char *sort_by,
     k++;
   }
 
+  // copying the remaining elements of L or R (if there was any)
   while (i < n1) {
     arr[k] = L[i];
     i++;
@@ -178,27 +194,52 @@ void merge(struct Places arr[], int left, int mid, int right, char *sort_by,
   }
 }
 
+// this function will recursively sort an array based on user wants column and
+// order
 void mergeSort(struct Places arr[], int left, int right, char *sort_by,
                char *order_by) {
+
+  // if there are more than one element in the array segment, proceed with
+  // sorting
   if (left < right) {
+    // calculate the middle point of the current segment
     int mid = left + (right - left) / 2;
 
+    // sort the left and right just by a half
     mergeSort(arr, left, mid, sort_by, order_by);
     mergeSort(arr, mid + 1, right, sort_by, order_by);
 
+    // merge the two sorted halves together
     merge(arr, left, mid, right, sort_by, order_by);
   }
-}
 
+  // keren bet kata kata gw :v segment segment wkwkwkwkwk
+}
+//---------------------------------------------------------------------
+
+//-------BINARY SEARCH-----------
+// This function just to search for a target value within a sepcific column of
+// the places array using binary search algorithm to find the target in a sorted
+// array
 void searchRow(struct Places arr[], int left, int right, char *column,
                char *target) {
+  // to use binary search we need to sort the array based on the specified
+  // column before we performing the searching and cause we already have
+  // function to do that i will just gonna called that function
   mergeSort(arr, 0, total_places - 1, column, "asc");
+
   int found = 0;
   int mid = left + (right - left) / 2;
+
+  // and then we'll do the binary search to find the target
   while (right >= left) {
     mid = left + (right - left) / 2;
+
+    // compare the middle element's "location" field with the target string,
+    // Binary search is assumes the array is sorted by the location field
     int cmp = strcmp(arr[mid].location, target);
 
+    // if we found the target then we'll gonna return the result
     if (cmp == 0) {
       found = 1;
 
@@ -207,8 +248,12 @@ void searchRow(struct Places arr[], int left, int right, char *column,
              arr[mid].carpark, arr[mid].type, arr[mid].furnish);
 
       int i = mid - 1;
+
+      // search for any duplicate records on the left and right side of the
+      // current middle element.
       while (i >= left) {
         int cmpLeft;
+        // compare based on the column that it passed
         if (strcmp(column, "location") == 0) {
           cmpLeft = strcmp(arr[i].location, target);
         } else if (strcmp(column, "city") == 0) {
@@ -252,6 +297,7 @@ void searchRow(struct Places arr[], int left, int right, char *column,
         }
       }
 
+      // like i said this function is gonna stop and wait for the user action
       waitEnter("Enter sekali lagi untuk melanjutkan");
       return;
     } else if (cmp > 0) {
@@ -261,86 +307,157 @@ void searchRow(struct Places arr[], int left, int right, char *column,
     }
   }
 
+  // do i need to explain this one?
+  // if it's not found
   if (!found) {
     puts("Gak ketemu coy!");
   }
 
+  // i don't need to explain this one just scroll UP!
   waitEnter("Enter sekali lagi untuk melanjutkan");
 }
+//-------------------------------------------------------------------------------
+
+//-------------------------------------
+/// this code is write by hiyo - Daffa
+// https://github.com/hiyokun-d
+// https://hiyo-dev.vercel.app
+// My Discord server: https://discord.gg/9aP6WM5F (hiyo-d)
+//--------------------------------------------------------
 
 // alias: save file :v
+// it's just saving the file
 void exportFile(char fileName[]) {
+  // we'' add ".csv" in the filename'
   char *extension = strcat(fileName, ".csv");
+
+  // then we'll open the file in write mode cause it can make a new file
   fptr = fopen(fileName, "w");
+
+  // if we can't open the file
   if (fptr == NULL) {
     printf("Lah gak bisa open filenya, ada sesuatu yang salah nampaknya\n");
     return;
   }
 
+  // write the header row to the file
   fprintf(fptr, "Location,City,Price,Rooms,Bathroom,Carpark,Type,Furnish\n");
+
+  // loop throught the array and then write it into the file that we was made
   for (int i = 0; i < total_places; i++) {
     fprintf(fptr, "%s,%s,%d,%d,%d,%d,%s,%s\n", place[i].location, place[i].city,
             place[i].price, place[i].rooms, place[i].bathroom, place[i].carpark,
             place[i].type, place[i].furnish);
   }
 
+  // it's just tell the user if the file was saved and tell them what's the name
+  // of the file
   printf("Datanya udah ke save dengan nama %s\n", fileName);
 }
 
 int main() {
-  int choice = 1;
+  // we'll gonna read the file and store it in place array
   readFile();
+
+  int choice = 1;
   int rows_to_display;
   char column[50], order[5] = "asc";
   char target[50], filename[80];
 
+  // just do infinite loop to display the menu until user choose to exit or stop
+  // the program
   while (1) {
+    // display the menu using the function that we made
     displayMenu();
+
+    // ask user to pick an action and take user's action
     printf("Pilih angka 1-5 aja jangan kurang atau lebih: ");
     scanf("%d", &choice);
 
     switch (choice) {
+      // if user pick 1 (display data)
     case 1:
+      // ask user how much they want to display the data and then store it in
+      // rows_to_display variable
       printf("\n\n\n\nBerapa baris yang lu mau display bang? ");
       scanf("%d", &rows_to_display);
+
+      // display the data
       displayData(rows_to_display);
       break;
+
+      // if user pick 2 (searching)
     case 2:
+      // ask user what's column that they want to search based on
       printf("Mau search kolom yang mana? ");
       scanf("%s", column);
+      // what target they want to search like
       printf("Target yang kamu mau search apa? (pastiin penulisanmu betul) "
              "[case-sensitive] ");
       scanf("%s", target);
+      // convert the column to make sure there's no any mistake like "LoCaTiON"
+      // we'll gonna convert it into "location"
       converTolowerCase(column);
+
+      // after all of that we'll gonna search it also display it
       searchRow(place, 0, total_places - 1, column, target);
       break;
+
+      // if user pick 3 (sort)
     case 3:
+      // yeah just ask the which column they want to sort and what's order they
+      // want it to be and then store all of the value that we got into variable
+      // column and order
       printf("Mau sort kolom yang mana? ");
       scanf("%s", column);
       getchar();
       printf("Mau kayak gimana sortnya (asc - desc) ");
       scanf("%s", order);
+      // conver the column and order into lower case
       converTolowerCase(column);
       converTolowerCase(order);
-      mergeSort(place, 0, total_places - 1, column, order);
-      displayData(10);
 
+      // sort it using merge sort
+      mergeSort(place, 0, total_places - 1, column, order);
+
+      // and then display the data but it's gonna display just 10 rows
+      displayData(10);
       break;
+
+      // if user pick 4 (save)
     case 4:
+      // yeah it's gonna ask user what name of the file gonna be and then store
+      // it in filename
       printf("Mau ngesave filenya dengan nama apa? ");
       scanf("%s", filename);
+
+      // we'll gonna save the file using export file
       exportFile(filename);
       break;
+
+      // if user pick 5 (exit)
     case 5:
+      // say goodbye to user
       puts("Aight see you brother maybe next time");
+
+      // stop the program
       return 0;
       break;
+
+      // if user don't put the number correctly or it's greater or less
     default:
+      // we'll tell them
       puts("Masukin angka 1-5 aja di baca dong :)");
       break;
     }
   }
 
+  // make sure the file is closed
   fclose(fptr);
   return 0;
 }
+
+// this code is write by hiyo - Daffa
+// https://github.com/hiyokun-d
+// https://hiyo-dev.vercel.app
+// My Discord server: https://discord.gg/9aP6WM5F (hiyo-d)
