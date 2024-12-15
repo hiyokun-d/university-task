@@ -228,21 +228,25 @@ void searchRow(struct Places arr[], int left, int right, char *column,
   // function to do that i will just gonna called that function
   mergeSort(arr, 0, total_places - 1, column, "asc");
 
-  int found = 0;
-  int mid = left + (right - left) / 2;
-
+  int mid;
   // and then we'll do the binary search to find the target
   while (right >= left) {
     mid = left + (right - left) / 2;
+    int cmp;
 
-    // compare the middle element's "location" field with the target string,
-    // Binary search is assumes the array is sorted by the location field
-    int cmp = strcmp(arr[mid].location, target);
+    // compare based on the column that it passed
+    if (strcmp(column, "location") == 0) {
+      cmp = strcmp(arr[mid].location, target);
+    } else if (strcmp(column, "city") == 0) {
+      cmp = strcmp(arr[mid].city, target);
+    } else if (strcmp(column, "type") == 0) {
+      cmp = strcmp(arr[mid].type, target);
+    } else {
+      cmp = strcmp(arr[mid].furnish, target);
+    }
 
     // if we found the target then we'll gonna return the result
     if (cmp == 0) {
-      found = 1;
-
       printf("%-20s%-20s%-15d%-10d%-12d%-12d%-14s%-15s\n", arr[mid].location,
              arr[mid].city, arr[mid].price, arr[mid].rooms, arr[mid].bathroom,
              arr[mid].carpark, arr[mid].type, arr[mid].furnish);
@@ -309,9 +313,7 @@ void searchRow(struct Places arr[], int left, int right, char *column,
 
   // do i need to explain this one?
   // if it's not found
-  if (!found) {
-    puts("Gak ketemu coy!");
-  }
+  puts("Gak ketemu coy!");
 
   // i don't need to explain this one just scroll UP!
   waitEnter("Enter sekali lagi untuk melanjutkan");
