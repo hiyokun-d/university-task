@@ -8,7 +8,7 @@ if you want an explanation of my code ask GPT cause I can't explain it
 Just feel free to ask me on Discord if you want
 ****
 ## Contact
-discord: hiyo-d\n
+discord: hiyo-d <br>
 link server: [Gabutz](https://discord.gg/Te7xqXSgJN)
 
 ****
