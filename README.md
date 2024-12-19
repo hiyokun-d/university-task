@@ -1,8 +1,16 @@
-# School of computer science
+# School of Computer Science
 
-Just collection of my answer for online judge on binus university
-if you want explanation of my code just ask GPT cause i can't do explain it
+Just a collection of my answer for an online judgment on binus university
+if you want an explanation of my code ask GPT cause I can't explain it
 
-> ⚠️ don't copy this code without read it first and try to solve it by yourself
+> ⚠️ don't copy this code without reading it first and trying to solve it by yourself
 
-Just feel free to ask me on discord if you want
+Just feel free to ask me on Discord if you want
+****
+## Contact
+discord: hiyo-d
+link server: [Gabutz](https://discord.gg/Te7xqXSgJN)
+
+****
+## info
+if you tired of accessing my GitHub every single time just ask my bot to get the answer that you want, use this command `/help-online-judge` on my discord server and my bot will give you the code that you need
