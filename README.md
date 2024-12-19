@@ -12,5 +12,5 @@ discord: hiyo-d <br>
 link server: [Gabutz](https://discord.gg/Te7xqXSgJN)
 
 ****
-## info
+## bot help
 if you tired of accessing my GitHub every single time just ask my bot to get the answer that you want, use this command `/help-online-judge` on my discord server and my bot will give you the code that you need
