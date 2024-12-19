@@ -1,6 +1,6 @@
 # School of Computer Science
 
-Just a collection of my answer for an online judgment on binus university
+Just a collection of my answers for an online judgment on Binus University
 if you want an explanation of my code ask GPT cause I can't explain it
 
 > ⚠️ don't copy this code without reading it first and trying to solve it by yourself
@@ -8,7 +8,7 @@ if you want an explanation of my code ask GPT cause I can't explain it
 Just feel free to ask me on Discord if you want
 ****
 ## Contact
-discord: hiyo-d
+discord: hiyo-d\n
 link server: [Gabutz](https://discord.gg/Te7xqXSgJN)
 
 ****
